@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary:#0B4F6C; --gold:#C9A227; --ok:#2E7D32; --bad:#C62828; --muted:#6b7780; --bg:#f3f6f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Cairo',Tahoma,sans-serif; background:var(--bg); color:#1f2a30; min-height:100vh; }
+    header { background:linear-gradient(135deg,var(--primary),#073247); color:#fff; padding:36px 16px 70px; text-align:center; }
+    header h1 { margin:0; font-size:26px; font-weight:800; }
+    header p { margin:6px 0 0; opacity:.85; }
+    main { max-width:620px; margin:-48px auto 40px; padding:0 16px; }
+    .card { background:#fff; border-radius:16px; box-shadow:0 10px 30px rgba(11,79,108,.12); padding:24px; margin-bottom:18px; }
+    form { display:flex; gap:10px; flex-wrap:wrap; }
+    input { flex:1 1 240px; padding:14px 16px; border:2px solid #dde4e8; border-radius:10px; font:inherit; font-size:16px; direction:ltr; text-align:center; letter-spacing:1px; }
+    input:focus { outline:none; border-color:var(--primary); }
+    button { flex:0 0 auto; padding:14px 26px; background:var(--gold); color:#fff; border:0; border-radius:10px; font:inherit; font-weight:800; font-size:16px; cursor:pointer; }
+    button:disabled { opacity:.6; cursor:wait; }
+    .hint { color:var(--muted); font-size:13px; margin:10px 0 0; text-align:center; }
+    .badge { display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:12px; font-weight:800; font-size:18px; margin-bottom:16px; }
+    .badge .ic { width:38px; height:38px; border-radius:50%; display:grid; place-items:center; color:#fff; font-size:20px; flex:none; }
+    .valid { background:#E8F5E9; color:var(--ok); } .valid .ic { background:var(--ok); }
+    .invalid { background:#FFEBEE; color:var(--bad); } .invalid .ic { background:var(--bad); }
+    .revoked { background:#F5F5F5; color:#555; } .revoked .ic { background:#777; }
+    table { width:100%; border-collapse:collapse; }
+    td { padding:11px 8px; border-bottom:1px solid #eef1f3; vertical-align:top; }
+    td:first-child { color:var(--muted); width:38%; }
+    td:last-child { font-weight:600; }
+    .name { font-size:20px; color:var(--primary); font-weight:800; }
+    a.dl { display:block; text-align:center; margin-top:18px; background:var(--primary); color:#fff; padding:13px; border-radius:10px; text-decoration:none; font-weight:800; }
+    footer { text-align:center; color:var(--muted); font-size:12px; padding-bottom:24px; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>التحقق من صحة الشهادات</h1>
+    <p><?= org ?></p>
+  </header>
+  <main>
+    <div class="card">
+      <form id="f">
+        <input id="q" placeholder="رقم الشهادة أو رمز التحقق" autocomplete="off" maxlength="60" required>
+        <button id="btn" type="submit">تحقّق</button>
+      </form>
+      <p class="hint">تجد رقم الشهادة ورمز التحقق أسفل الشهادة، أو امسح رمز QR مباشرة.</p>
+    </div>
+    <div id="res" class="card hidden"></div>
+  </main>
+  <footer>نظام الشهادات الإلكترونية — <?= org ?></footer>
+
+  <script>
+    const INITIAL = <?!= initialJson ?>;
+    const $ = id => document.getElementById(id);
+
+    function row(label, value) {
+      if (!value) return null;
+      const tr = document.createElement('tr');
+      const a = document.createElement('td'); a.textContent = label;
+      const b = document.createElement('td'); b.textContent = value;
+      tr.append(a, b); return tr;
+    }
+
+    function render(r, q) {
+      const box = $('res');
+      box.innerHTML = ''; box.classList.remove('hidden');
+      const badge = document.createElement('div');
+      const ic = document.createElement('span'); ic.className = 'ic';
+      const txt = document.createElement('span');
+      if (!r || !r.found) {
+        badge.className = 'badge invalid'; ic.textContent = '✕';
+        txt.textContent = 'لم يتم العثور على شهادة بهذا الرقم';
+        badge.append(ic, txt); box.append(badge);
+        const p = document.createElement('p'); p.className = 'hint';
+        p.textContent = 'تأكد من كتابة الرقم «' + q + '» بشكل صحيح.';
+        box.append(p); return;
+      }
+      if (r.valid) { badge.className = 'badge valid'; ic.textContent = '✓'; txt.textContent = 'شهادة صحيحة وسارية'; }
+      else { badge.className = 'badge revoked'; ic.textContent = '!'; txt.textContent = 'هذه الشهادة ملغاة'; }
+      badge.append(ic, txt); box.append(badge);
+
+      const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = r.name;
+      box.append(nm);
+      const t = document.createElement('table');
+      [row('صفة الحاصل', r.type), row('الدورة', r.course), row('عدد الساعات', r.hours),
+       row('رقم الشهادة', r.certNo), row('تاريخ الإصدار', r.date), row('تاريخ الإلغاء', r.revokedAt)]
+        .forEach(x => x && t.append(x));
+      box.append(t);
+      if (r.link) {
+        const a = document.createElement('a'); a.className = 'dl'; a.href = r.link; a.target = '_blank';
+        a.rel = 'noopener'; a.textContent = 'عرض الشهادة'; box.append(a);
+      }
+    }
+
+    $('f').addEventListener('submit', e => {
+      e.preventDefault();
+      const q = $('q').value.trim(); if (!q) return;
+      $('btn').disabled = true; $('btn').textContent = 'جارٍ التحقق...';
+      google.script.run
+        .withSuccessHandler(r => { render(r, q); done(); })
+        .withFailureHandler(() => { render(null, q); done(); })
+        .verifyCertificate(q);
+    });
+    function done() { $('btn').disabled = false; $('btn').textContent = 'تحقّق'; }
+
+    if (INITIAL && INITIAL.q) { $('q').value = INITIAL.q; render(INITIAL.result, INITIAL.q); }
+  </script>
+</body>
+</html>
