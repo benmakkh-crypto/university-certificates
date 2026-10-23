@@ -53,7 +53,7 @@ a{color:inherit}
 .hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:110px 16px 80px;overflow:hidden;isolation:isolate}
 #scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,rgba(10,18,56,0) 0,rgba(10,18,56,.55) 55%,var(--night) 100%)}
+  background:radial-gradient(ellipse at 50% 48%,rgba(10,18,56,.62) 0,rgba(10,18,56,.38) 38%,rgba(10,18,56,.6) 62%,var(--night) 100%)}
 .stage{perspective:1100px}
 .calli-wrap{position:relative;transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform}
 .calli{font-family:var(--calli);font-weight:700;margin:0;line-height:1.55;font-size:clamp(48px,10.5vw,148px);letter-spacing:0;white-space:nowrap}
@@ -398,9 +398,9 @@ function initScene() {
   const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
   camera.position.set(0, 0, 14);
 
-  scene.add(new THREE.AmbientLight(0x3a4a9a, 0.9));
-  const key = new THREE.PointLight(0xfff0c8, 2.2, 60); key.position.set(6, 6, 10); scene.add(key);
-  const rim = new THREE.PointLight(0x2ba59f, 1.6, 60); rim.position.set(-8, -4, 6); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0x3a4a9a, 0.55));
+  const key = new THREE.PointLight(0xfff0c8, 1.1, 80); key.position.set(6, 6, 10); scene.add(key);
+  const rim = new THREE.PointLight(0x2ba59f, 0.45, 60); rim.position.set(-8, -4, 6); scene.add(rim);
 
   // نجمة ثمانية (خاتم سليمان) مذهّبة ومجسّمة
   function starShape(outer, inner, points) {
@@ -413,7 +413,7 @@ function initScene() {
     }
     return s;
   }
-  const gold = new THREE.MeshStandardMaterial({ color: 0xd4a93c, metalness: 0.92, roughness: 0.28 });
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd4a93c, metalness: 0.75, roughness: 0.42 });
   const lapis = new THREE.MeshStandardMaterial({ color: 0x1b2a6b, metalness: 0.4, roughness: 0.5 });
   const group = new THREE.Group();
   const big = starShape(5.2, 4.1, 8);
@@ -424,7 +424,7 @@ function initScene() {
   innerStar.position.z = -0.6; group.add(innerStar);
   const ring = new THREE.Mesh(new THREE.TorusGeometry(6.3, 0.07, 16, 160), gold); group.add(ring);
   const ring2 = new THREE.Mesh(new THREE.TorusGeometry(6.8, 0.03, 12, 160), gold); group.add(ring2);
-  group.position.z = -6;
+  group.position.z = -14;
   scene.add(group);
 
   // غبار ذهبي
