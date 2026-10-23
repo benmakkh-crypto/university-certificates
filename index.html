@@ -5,201 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>منصة الشهادات — جامعة الحضارة العالمية</title>
 <meta name="description" content="منصة إصدار الشهادات الإلكترونية والتحقق منها — جامعة الحضارة العالمية">
-<meta name="theme-color" content="#0A1238">
+<meta name="theme-color" content="#13234F">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="config.js?v=2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Rakkas&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="config.js?v=3"></script>
 <style>
-/* لاستخدام خط ثلث مرخّص: ضع ملف الخط باسم fonts/thuluth.woff2 في المستودع وسيُستخدم تلقائياً */
-@font-face { font-family: 'ThuluthCustom'; src: url('fonts/thuluth.woff2') format('woff2'), url('fonts/thuluth.ttf') format('truetype'); font-display: swap; }
-
 :root{
-  --night:#0A1238; --lapis:#1B2A6B; --lapis-2:#24357F;
-  --gold:#D4A93C; --gold-hi:#F6DC8C; --gold-deep:#8A6216; --gold-shadow:#4A3208;
-  --turq:#2BA59F; --turq-deep:#1B7471;
-  --parch:#F4EBD6; --parch-2:#EADDBF; --ink:#1D2240; --ink-soft:#5B5E78;
-  --on-night:#E9E2CF; --on-night-soft:#A9AFCB;
-  --danger:#B23A3A; --warn:#C47A1C;
-  --r-sm:6px; --r-md:12px; --r-lg:22px;
-  --calli:'ThuluthCustom','Amiri',serif;
+  /* الهوية: كحلي أكاديمي + ذهبي على أبيض */
+  --bg:#F5F6FA; --surface:#FFFFFF; --line:#E2E5EE;
+  --navy:#13234F; --navy-2:#1E3470; --navy-deep:#0B1633;
+  --gold:#A87618; --gold-hi:#E7C46A; --gold-soft:#F6EDD6;
+  --ink:#1B2232; --muted:#5D6578;
+  --ok:#1F7A5C; --ok-soft:#E3F2EC; --danger:#B4372F; --danger-soft:#F8E4E2;
+  /* أسماء مستعارة يستخدمها كود اللوحة */
+  --lapis:var(--navy); --turq:var(--ok); --turq-deep:#17604A; --parch:var(--bg); --parch-2:var(--line);
+  --ink-soft:var(--muted); --gold-deep:#8E6113;
+  --r-sm:8px; --r-md:14px; --r-lg:22px;
+  --calli:'Rakkas',serif;
   --ui:'IBM Plex Sans Arabic',Tahoma,sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--ui);background:var(--night);color:var(--on-night);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;font-family:var(--ui);background:var(--surface);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button,input,select{font:inherit}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .hidden{display:none!important}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
 
-/* ---------------- الهيدر ---------------- */
-.topbar{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,48px);background:linear-gradient(to bottom,rgba(10,18,56,.85),rgba(10,18,56,0));}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;color:var(--on-night)}
-.brand svg{width:34px;height:34px}
-.topbar nav{display:flex;gap:6px}
-.btn{display:inline-block;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:10px 20px;font-weight:600;transition:transform .15s,background .2s}
+/* أزرار */
+.btn{display:inline-block;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:11px 24px;font-weight:600;transition:transform .15s,background .2s,color .2s}
 .btn:active{transform:scale(.97)}
-.btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:var(--gold-shadow);box-shadow:0 2px 0 var(--gold-deep)}
-.btn-ghost{background:transparent;color:var(--on-night);border:1px solid rgba(246,220,140,.35)}
-.btn-ghost:hover{background:rgba(246,220,140,.08)}
-.btn-turq{background:var(--turq);color:#fff}
-.btn-turq:hover{background:var(--turq-deep)}
-.btn-sm{padding:6px 12px;font-size:13px;white-space:nowrap}
-.btn-danger{background:transparent;color:var(--danger);border:1px solid rgba(178,58,58,.4)}
+.btn-turq{background:var(--navy);color:#fff}
+.btn-turq:hover{background:var(--navy-2)}
+.btn-gold{background:linear-gradient(180deg,var(--gold-hi),#D2A445);color:var(--navy-deep);box-shadow:0 2px 0 var(--gold)}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--navy)}
+.btn-sm{padding:6px 14px;font-size:13px;white-space:nowrap}
+.btn-danger{background:transparent;color:var(--danger);border:1.5px solid #EDC9C5}
 
-/* ---------------- البطل ---------------- */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:110px 16px 80px;overflow:hidden;isolation:isolate}
-#scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 48%,rgba(10,18,56,.62) 0,rgba(10,18,56,.38) 38%,rgba(10,18,56,.6) 62%,var(--night) 100%)}
-.stage{perspective:1100px}
-.calli-wrap{position:relative;transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform}
-.calli{font-family:var(--calli);font-weight:700;margin:0;line-height:1.55;font-size:clamp(48px,10.5vw,148px);letter-spacing:0;white-space:nowrap}
-.calli .l1{display:block;font-size:.58em;line-height:1.2;margin-bottom:-.12em}
-/* طبقة البروز ثلاثي الأبعاد */
-.calli.depth{position:absolute;inset:0;color:var(--gold-deep);transform:translateZ(-30px);
-  text-shadow:0 1px 0 #7A5512,0 2px 0 #6E4C10,0 3px 0 #62430E,0 4px 0 #573B0C,0 5px 0 #4D340A,0 6px 0 #432D09,0 8px 6px rgba(0,0,0,.45),0 18px 30px rgba(0,0,0,.55),0 0 60px rgba(212,169,60,.25)}
-/* الطبقة الذهبية الأمامية */
-.calli.face{position:relative;transform:translateZ(0);
-  background:linear-gradient(172deg,#FFF6D2 0%,#F6DC8C 22%,#D4A93C 42%,#9C7019 58%,#E9C566 72%,#FFF1BE 82%,#B98A28 100%);
+/* الشريط العلوي */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-weight:700}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font-family:var(--calli);font-weight:400;font-size:22px;line-height:1}
+.topbar nav{display:flex;align-items:center;gap:22px}
+.topbar nav a.link{text-decoration:none;color:var(--muted);font-weight:500}
+.topbar nav a.link:hover{color:var(--navy)}
+
+/* البطل */
+.hero{position:relative;text-align:center;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px);overflow:hidden;isolation:isolate;
+  background:
+   radial-gradient(ellipse 60% 55% at 50% 38%,rgba(231,196,106,.22),transparent 70%),
+   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%2313234F' stroke-opacity='.055' stroke-width='1'%3E%3Cpath d='M48 8l12 28 28 12-28 12-12 28-12-28L8 48l28-12z'/%3E%3Ccircle cx='48' cy='48' r='14'/%3E%3C/g%3E%3C/svg%3E"),
+   linear-gradient(180deg,#fff,var(--bg));}
+.stage{perspective:1000px}
+.calli-wrap{position:relative;display:inline-block;transform-style:preserve-3d;transition:transform .3s ease-out;will-change:transform}
+.calli{font-family:var(--calli);font-weight:400;margin:0;line-height:1.6;font-size:clamp(44px,7.4vw,112px);white-space:nowrap;padding:0 .1em}
+.calli.depth{position:absolute;inset:0;color:var(--navy);transform:translateZ(-24px);
+  text-shadow:0 1px 0 #172A5C,0 2px 0 #152657,0 3px 0 #132351,0 4px 0 #11204B,0 5px 0 #0F1C45,0 6px 0 #0D193F,0 7px 0 #0B1633,0 12px 10px rgba(11,22,51,.28),0 24px 36px rgba(11,22,51,.18)}
+.calli.face{position:relative;
+  background:linear-gradient(176deg,#FFF3C9 0%,#F2D27A 24%,#D5A23B 46%,#9A6B14 60%,#E3B955 76%,#FBE6A4 88%,#B8862A 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.calli.shine{position:absolute;inset:0;color:transparent;pointer-events:none;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.85) 50%,transparent 60%);background-size:250% 100%;background-position:150% 0;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2.6s .6s ease-out 1 both}
+.calli.shine{position:absolute;inset:0;pointer-events:none;color:transparent;
+  background:linear-gradient(100deg,transparent 42%,rgba(255,255,255,.9) 50%,transparent 58%);background-size:260% 100%;background-position:150% 0;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2.4s .5s ease-out 1 both}
 @keyframes shine{to{background-position:-60% 0}}
-.latin{font-family:'Amiri',serif;letter-spacing:.32em;color:var(--gold);font-size:clamp(12px,1.6vw,16px);margin:18px 0 6px}
-.hero p.lead{color:var(--on-night-soft);max-width:34em;margin:6px auto 30px;font-size:clamp(15px,1.8vw,18px)}
+.ornament{display:block;margin:6px auto 0;width:min(300px,64vw);height:20px;color:var(--gold)}
+.latin{letter-spacing:.34em;color:var(--navy);font-size:clamp(11px,1.4vw,14px);font-weight:600;margin:14px 0 4px}
+.hero .lead{color:var(--muted);max-width:36em;margin:10px auto 30px;font-size:clamp(15px,1.7vw,18px)}
 .hero .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.ornament{display:block;margin:4px auto 0;width:min(340px,70vw);height:22px;color:var(--gold)}
+.hero .stats{display:flex;justify-content:center;gap:clamp(24px,6vw,72px);margin-top:46px;flex-wrap:wrap}
+.hero .stats div{display:flex;flex-direction:column;align-items:center}
+.hero .stats b{font-size:clamp(28px,3.4vw,38px);color:var(--navy);line-height:1.2;font-variant-numeric:tabular-nums}
+.hero .stats span{font-size:14px;color:var(--muted)}
 
-/* ---------------- التحقق ---------------- */
-.verify{position:relative;padding:90px clamp(16px,5vw,64px) 110px;background:
-  radial-gradient(circle at 15% 10%,rgba(43,165,159,.12),transparent 40%),
-  linear-gradient(180deg,var(--night),#0E1846 60%,var(--night))}
-.verify-inner{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,5vw,64px);align-items:center}
-.verify h2{font-family:'Amiri',serif;font-size:clamp(30px,4vw,44px);margin:0 0 8px;color:var(--gold-hi);font-weight:700;line-height:1.3}
-.verify p{color:var(--on-night-soft);margin:0 0 24px;max-width:28em}
-.vform{display:flex;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(246,220,140,.25);padding:6px;border-radius:999px}
-.vform input{flex:1;min-width:0;background:transparent;border:0;color:#fff;padding:12px 16px;font-size:16px;direction:ltr;text-align:center;letter-spacing:.06em}
-.vform input::placeholder{color:#8E95B8;letter-spacing:0;direction:rtl}
+/* أقسام */
+section.block{padding:clamp(56px,8vw,96px) 0}
+section.block.tint{background:var(--bg)}
+.sec-head{max-width:40em;margin-bottom:36px}
+.sec-head h2{font-size:clamp(26px,3.2vw,36px);color:var(--navy);margin:0 0 8px;line-height:1.35}
+.sec-head p{color:var(--muted);margin:0;font-size:17px}
+
+/* عن المنصة */
+.about{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.feat{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column;gap:18px}
+.feat li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.feat .ic{width:44px;height:44px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;color:var(--gold)}
+.feat .ic svg{width:22px;height:22px}
+.feat b{display:block;color:var(--navy);font-size:17px}
+.feat span{color:var(--muted);font-size:15px}
+
+/* شهادة نموذجية ثلاثية الأبعاد */
+.sample-stage{perspective:1200px;display:flex;justify-content:center}
+.sample{position:relative;width:min(100%,500px);aspect-ratio:1.414/1;background:#fff;border-radius:6px;transform-style:preserve-3d;
+  transform:rotateY(-16deg) rotateX(8deg);transition:transform .35s ease-out;
+  box-shadow:0 2px 0 #e8e2d2,0 30px 60px rgba(19,35,79,.20),0 8px 18px rgba(19,35,79,.10)}
+.sample::before{content:"";position:absolute;inset:10px;border:3px solid var(--navy);border-radius:3px}
+.sample::after{content:"";position:absolute;inset:17px;border:1px solid var(--gold);border-radius:2px}
+.sample .in{position:absolute;inset:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:translateZ(30px)}
+.sample .s-uni{font-family:var(--calli);color:var(--navy);font-size:clamp(18px,2.4vw,24px);line-height:1.4}
+.sample .s-title{font-weight:700;color:var(--navy);font-size:clamp(14px,1.7vw,18px)}
+.sample .s-name{font-family:var(--calli);color:var(--gold);font-size:clamp(22px,3vw,32px);line-height:1.5}
+.sample .s-txt{color:var(--muted);font-size:clamp(10px,1.1vw,12px);max-width:30em}
+.sample .s-foot{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end}
+.sample .qr{width:46px;height:46px;background:
+  conic-gradient(var(--navy) 25%,#fff 0 50%,var(--navy) 0 75%,#fff 0) 0 0/12px 12px;border:3px solid #fff;outline:1px solid var(--line)}
+.sample .seal{width:50px;height:50px;border-radius:50%;background:radial-gradient(circle,var(--gold-hi),var(--gold));border:3px solid var(--navy);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:700;transform:translateZ(20px)}
+.sample .sign{font-size:10px;color:var(--muted);border-top:1px solid #bbb;padding-top:2px;min-width:80px}
+
+/* خطوات */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,28px);counter-reset:s}
+.steps li{position:relative;padding-top:58px}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;top:0;right:0;width:42px;height:42px;border-radius:50%;
+  background:var(--navy);color:#fff;font-weight:700;display:grid;place-items:center;font-size:18px}
+.steps li:not(:last-child)::after{content:"";position:absolute;top:21px;right:54px;left:-14px;height:2px;background:linear-gradient(90deg,var(--line),var(--gold-hi))}
+.steps b{display:block;color:var(--navy);font-size:17px;margin-bottom:4px}
+.steps span{color:var(--muted);font-size:15px}
+
+/* لمن المنصة */
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,32px)}
+.aud div{border-top:3px solid var(--gold);padding-top:18px}
+.aud h3{margin:0 0 6px;color:var(--navy);font-size:19px}
+.aud p{margin:0;color:var(--muted);font-size:15px}
+
+/* التحقق */
+.verify-inner{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,5vw,64px);align-items:center}
+.vform{display:flex;gap:8px;background:var(--surface);border:1.5px solid var(--line);padding:6px;border-radius:999px;box-shadow:0 6px 20px rgba(19,35,79,.06)}
+.vform:focus-within{border-color:var(--navy)}
+.vform input{flex:1;min-width:0;background:transparent;border:0;color:var(--ink);padding:12px 16px;font-size:16px;direction:ltr;text-align:center;letter-spacing:.05em}
+.vform input::placeholder{color:#9AA0B2;letter-spacing:0}
 .vform input:focus{outline:none}
-.stats-line{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap}
-.stats-line div{display:flex;flex-direction:column}
-.stats-line b{font-size:28px;color:var(--gold-hi);font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
-.stats-line span{font-size:13px;color:var(--on-night-soft)}
+.hint{color:var(--muted);font-size:14px;margin:12px 4px 0}
 
-/* بطاقة الشهادة ثلاثية الأبعاد */
-.card3d{perspective:1400px;min-height:330px}
+.card3d{perspective:1400px}
 .flip{position:relative;width:100%;height:clamp(380px,34vw,420px);transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .flip.turned{transform:rotateY(180deg)}
-.side{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r-md);overflow:hidden;
-  background:var(--parch);color:var(--ink);box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(212,169,60,.4)}
+.side{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px;overflow:hidden;background:#fff;color:var(--ink);
+  box-shadow:0 30px 60px rgba(19,35,79,.16),0 0 0 1px var(--line)}
 .side.back{transform:rotateY(180deg)}
-.frame{position:absolute;inset:10px;border:2px solid var(--lapis);border-radius:6px}
-.frame::after{content:"";position:absolute;inset:5px;border:1px solid var(--gold);border-radius:4px}
+.frame{position:absolute;inset:10px;border:3px solid var(--navy);border-radius:3px}
+.frame::after{content:"";position:absolute;inset:4px;border:1px solid var(--gold);border-radius:2px}
 .side .content{position:absolute;inset:34px 30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}
-.side .uni{font-family:var(--calli);font-weight:700;color:var(--lapis);font-size:clamp(18px,2.4vw,24px)}
-.side .t{font-family:'Amiri',serif;font-size:clamp(20px,2.8vw,28px);font-weight:700;color:var(--lapis)}
-.side .nm{font-family:'Amiri',serif;font-size:clamp(22px,3.2vw,32px);color:var(--gold-deep);font-weight:700}
-.side .meta{font-size:13px;color:var(--ink-soft)}
-.side .placeholder{color:var(--ink-soft);font-size:14px;max-width:24em}
-.seal{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:14px;margin-bottom:6px}
-.seal.ok{background:rgba(43,165,159,.15);color:var(--turq-deep)}
-.seal.no{background:rgba(178,58,58,.12);color:var(--danger)}
-.seal.rv{background:rgba(91,94,120,.15);color:var(--ink-soft)}
+.side .uni{font-family:var(--calli);color:var(--navy);font-size:clamp(20px,2.4vw,26px);line-height:1.5}
+.side .t{font-size:clamp(17px,2vw,21px);font-weight:700;color:var(--navy)}
+.side .nm{font-family:var(--calli);font-size:clamp(24px,3vw,32px);color:var(--gold);line-height:1.5}
+.side .meta{font-size:13px;color:var(--muted)}
+.side .placeholder{color:var(--muted);font-size:14px;max-width:24em}
+.side .seal{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:14px;margin-bottom:6px}
+.seal.ok{background:var(--ok-soft);color:var(--ok)}
+.seal.no{background:var(--danger-soft);color:var(--danger)}
+.seal.rv{background:#ECEEF3;color:var(--muted)}
 .side dl{display:grid;grid-template-columns:auto auto;gap:2px 14px;margin:8px 0 0;font-size:13px;text-align:right}
-.side dt{color:var(--ink-soft)} .side dd{margin:0;font-weight:600}
-.side a.view{margin-top:10px;font-size:14px;font-weight:600;color:var(--lapis)}
+.side dt{color:var(--muted)} .side dd{margin:0;font-weight:600}
+.side a.view{margin-top:10px;font-size:14px;font-weight:600;color:var(--navy)}
 
-footer.site{padding:36px 16px;text-align:center;color:var(--on-night-soft);font-size:13px;border-top:1px solid rgba(246,220,140,.12)}
+/* التذييل */
+footer.site{background:var(--navy);color:#C9CFE0;padding:40px 0;font-size:14px}
+footer.site .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+footer.site b{font-family:var(--calli);font-weight:400;font-size:24px;color:var(--gold-hi)}
+footer.site nav{display:flex;gap:20px}
+footer.site a{color:#fff;text-decoration:none}
 
-/* ---------------- نافذة الدخول ---------------- */
-dialog{border:0;padding:0;border-radius:var(--r-lg);max-width:min(560px,calc(100vw - 32px));width:100%;background:var(--parch);color:var(--ink);box-shadow:0 40px 90px rgba(0,0,0,.6)}
-dialog::backdrop{background:rgba(6,10,34,.72);backdrop-filter:blur(6px)}
+/* نوافذ الحوار */
+dialog{border:0;padding:0;border-radius:var(--r-lg);max-width:min(560px,calc(100vw - 32px));width:100%;background:var(--surface);color:var(--ink);box-shadow:0 40px 90px rgba(11,22,51,.35)}
+dialog::backdrop{background:rgba(11,22,51,.55);backdrop-filter:blur(4px)}
 .dlg{padding:30px clamp(18px,4vw,34px)}
-.dlg h3{font-family:'Amiri',serif;font-size:28px;margin:0 0 4px;color:var(--lapis)}
-.dlg .sub{color:var(--ink-soft);margin:0 0 20px;font-size:14px}
+.dlg h3{font-size:24px;margin:0 0 4px;color:var(--navy)}
+.dlg .sub{color:var(--muted);margin:0 0 20px;font-size:14px}
 .roles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-.role{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border-radius:var(--r-md);border:2px solid transparent;background:#fff;text-align:center;transition:border-color .2s,transform .2s}
+.role{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border-radius:var(--r-md);border:2px solid var(--line);background:#fff;text-align:center;transition:border-color .2s,transform .2s}
 .role:hover{transform:translateY(-2px)}
-.role[aria-checked="true"]{border-color:var(--gold);background:#FFFBEF}
-.role:focus-visible{outline:3px solid var(--lapis);outline-offset:2px}
-.role .medal{width:64px;height:64px}
-.role b{color:var(--lapis)} .role small{color:var(--ink-soft);font-size:12px;line-height:1.5}
+.role[aria-checked="true"]{border-color:var(--gold);background:#FFFCF4}
+.role:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.role .medal{width:60px;height:60px}
+.role b{color:var(--navy)} .role small{color:var(--muted);font-size:12px;line-height:1.5}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.field label{font-size:14px;font-weight:600;color:var(--ink)}
-.field input,.field select{border:1.5px solid var(--parch-2);background:#fff;border-radius:var(--r-sm);padding:10px 12px;color:var(--ink)}
-.field input:focus,.field select:focus{outline:none;border-color:var(--lapis)}
+.field label{font-size:14px;font-weight:600}
+.field input,.field select{border:1.5px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:10px 12px;color:var(--ink)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--navy)}
 .pin{text-align:center;letter-spacing:.5em;font-size:22px;direction:ltr}
 .err{color:var(--danger);font-size:14px;min-height:1.4em;margin:0 0 10px}
-.dlg .row{display:flex;gap:10px;justify-content:flex-start;flex-wrap:wrap}
-.notice{background:#FFF4DA;border:1px solid #EBCB80;color:#6B4E10;border-radius:var(--r-sm);padding:10px 12px;font-size:13px;margin-bottom:14px}
+.dlg .row{display:flex;gap:10px;flex-wrap:wrap}
+.notice{background:#FFF6E0;border:1px solid #EBCB80;color:#6B4E10;border-radius:var(--r-sm);padding:10px 12px;font-size:13px;margin-bottom:14px}
 
-/* ---------------- لوحة التحكم ---------------- */
-#app{min-height:100vh;background:linear-gradient(180deg,var(--night) 0 158px,var(--parch) 158px)}
+/* لوحة التحكم */
+#app{min-height:100vh;background:linear-gradient(180deg,var(--navy) 0 158px,var(--bg) 158px)}
 .app-head{max-width:1240px;margin:0 auto;padding:22px clamp(16px,3vw,32px) 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.app-head .who{display:flex;align-items:center;gap:12px}
-.app-head .who .calli-mini{font-family:var(--calli);font-weight:700;font-size:26px;color:var(--gold-hi);line-height:1.3}
-.app-head .who small{display:block;color:var(--on-night-soft);font-size:13px}
+.app-head .calli-mini{font-family:var(--calli);font-size:26px;color:var(--gold-hi);line-height:1.4}
+.app-head small{display:block;color:#C9CFE0;font-size:13px}
+.app-head .btn-ghost{color:#fff;border-color:rgba(255,255,255,.35)}
+.app-head .btn-ghost:hover{border-color:#fff}
 .tabs{max-width:1240px;margin:22px auto 0;padding:0 clamp(16px,3vw,32px);display:flex;gap:4px;overflow-x:auto}
-.tab{all:unset;cursor:pointer;padding:10px 18px;border-radius:12px 12px 0 0;color:var(--on-night-soft);font-weight:600;white-space:nowrap}
-.tab[aria-selected="true"]{background:var(--parch);color:var(--lapis)}
+.tab{all:unset;cursor:pointer;padding:10px 18px;border-radius:12px 12px 0 0;color:#C9CFE0;font-weight:600;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--bg);color:var(--navy)}
 .tab:focus-visible{outline:2px solid var(--gold-hi)}
-.panel{max-width:1240px;margin:0 auto;padding:26px clamp(16px,3vw,32px) 60px;color:var(--ink)}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--parch-2);border:1px solid var(--parch-2);border-radius:var(--r-md);overflow:hidden;margin-bottom:26px}
-.kpi{background:#FBF6E8;padding:18px 20px}
-.kpi b{display:block;font-size:34px;line-height:1.1;color:var(--lapis);font-variant-numeric:tabular-nums}
-.kpi span{font-size:14px;color:var(--ink-soft)}
-.kpi.gold b{color:var(--gold-deep)} .kpi.turq b{color:var(--turq-deep)}
+.panel{max-width:1240px;margin:0 auto;padding:26px clamp(16px,3vw,32px) 60px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;margin-bottom:26px}
+.kpi{background:#fff;padding:18px 20px}
+.kpi b{display:block;font-size:34px;line-height:1.1;color:var(--navy);font-variant-numeric:tabular-nums}
+.kpi span{font-size:14px;color:var(--muted)}
+.kpi.gold b{color:var(--gold)} .kpi.turq b{color:var(--ok)}
 .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
-.box{background:#FBF6E8;border:1px solid var(--parch-2);border-radius:var(--r-md);padding:18px 20px}
-.box h4{margin:0 0 12px;font-size:16px;color:var(--lapis)}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:18px 20px}
+.box h4{margin:0 0 12px;font-size:16px;color:var(--navy)}
 .bars{display:flex;flex-direction:column;gap:12px}
 .bar label{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
-.bar .track{height:10px;background:var(--parch-2);border-radius:999px;overflow:hidden;display:flex}
-.bar .m{background:var(--lapis)} .bar .f{background:var(--turq)}
-.legend{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);margin-top:6px}
+.bar .track{height:10px;background:var(--line);border-radius:999px;overflow:hidden;display:flex}
+.bar .m{background:var(--navy)} .bar .f{background:var(--gold-hi)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);margin-top:6px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-left:6px;vertical-align:middle}
 table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:right;font-weight:600;color:var(--ink-soft);font-size:13px;padding:10px 8px;border-bottom:2px solid var(--parch-2);white-space:nowrap}
-td{padding:10px 8px;border-bottom:1px solid var(--parch-2);vertical-align:middle}
+th{text-align:right;font-weight:600;color:var(--muted);font-size:13px;padding:10px 8px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablewrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:var(--r-md)}
 .tablewrap table{min-width:900px}
-.tablewrap{overflow-x:auto;background:#FBF6E8;border:1px solid var(--parch-2);border-radius:var(--r-md)}
 .tablewrap table td:first-child,.tablewrap table th:first-child{padding-right:16px}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-.toolbar input,.toolbar select{border:1.5px solid var(--parch-2);background:#fff;border-radius:999px;padding:9px 16px;color:var(--ink)}
+.toolbar input,.toolbar select{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;color:var(--ink)}
 .toolbar input{flex:1;min-width:200px}
 .toolbar .spacer{flex:1}
 .st{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
-.st-0{background:#E7E3F4;color:#4B4682} .st-1{background:#DCEBFB;color:#1B4F8A} .st-2{background:#D7F0EC;color:var(--turq-deep)}
-.st-3{background:#FBE8CC;color:#8A520F} .st-4{background:#E6E6E6;color:#555} .st-5{background:#F8D9D9;color:var(--danger)}
+.st-0{background:#ECEEF5;color:#3F4A6E} .st-1{background:#E1E8F7;color:var(--navy)} .st-2{background:var(--ok-soft);color:var(--ok)}
+.st-3{background:var(--gold-soft);color:#7A5410} .st-4{background:#EDEDED;color:#555} .st-5{background:var(--danger-soft);color:var(--danger)}
 .acts{display:flex;gap:6px;flex-wrap:nowrap}
-.empty{padding:40px 16px;text-align:center;color:var(--ink-soft)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--lapis);color:#fff;padding:12px 22px;border-radius:999px;z-index:100;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 32px)}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--navy);color:#fff;padding:12px 22px;border-radius:999px;z-index:100;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.bad{background:var(--danger)}
 .loading{opacity:.55;pointer-events:none}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-.readonly-note{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
+.readonly-note{font-size:13px;color:var(--muted);margin:0 0 14px}
 
-@media (max-width:860px){
-  .verify-inner{grid-template-columns:1fr}
+@media (max-width:900px){
+  .about,.verify-inner{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:32px}
+  .steps li::after{display:none}
+  .aud{grid-template-columns:1fr}
   .kpis{grid-template-columns:repeat(2,1fr)}
   .grid2{grid-template-columns:1fr}
-  .calli{white-space:normal}
+  .topbar nav a.link{display:none}
 }
-@media (max-width:520px){
-  .topbar nav .btn-ghost{display:none}
-  .roles{grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:640px){
+  .calli{white-space:normal;font-size:clamp(46px,13vw,64px);line-height:1.5}
+  .steps{grid-template-columns:1fr}
   .form-grid{grid-template-columns:1fr}
-  .stats-line{gap:18px}
+  .sample{transform:rotateY(-8deg) rotateX(6deg)}
 }
-@media (prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
-}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -207,47 +264,110 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <!-- ======================= الواجهة العامة ======================= -->
 <div id="public">
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="الصفحة الرئيسية">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#D4A93C" stroke-width="5"><rect x="22" y="22" width="56" height="56"/><rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="12"/></g></svg>
-      <span>منصة الشهادات</span>
-    </a>
-    <nav>
-      <a class="btn btn-ghost" href="#verify">التحقق من شهادة</a>
-      <button class="btn btn-gold" type="button" id="openLogin">دخول الإدارة</button>
-    </nav>
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="جامعة الحضارة العالمية — الرئيسية">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#13234F"/><g fill="none" stroke="#E7C46A" stroke-width="4"><rect x="30" y="30" width="40" height="40"/><rect x="30" y="30" width="40" height="40" transform="rotate(45 50 50)"/></g><circle cx="50" cy="50" r="7" fill="#E7C46A"/></svg>
+        <b>جامعة الحضارة العالمية</b>
+      </a>
+      <nav aria-label="القائمة الرئيسية">
+        <a class="link" href="#about">عن المنصة</a>
+        <a class="link" href="#how">آلية العمل</a>
+        <a class="link" href="#verify">التحقق</a>
+        <button class="btn btn-turq btn-sm" type="button" id="openLogin">دخول الإدارة</button>
+      </nav>
+    </div>
   </header>
 
   <section class="hero" id="top">
-    <canvas id="scene" aria-hidden="true"></canvas>
-    <div>
+    <div class="wrap">
       <div class="stage">
         <div class="calli-wrap" id="calli">
-          <h1 class="calli depth" aria-hidden="true"><span class="l1">جَامِعَةُ</span>الحَضَارَةِ العَالَمِيَّةِ</h1>
-          <h1 class="calli face"><span class="l1">جَامِعَةُ</span>الحَضَارَةِ العَالَمِيَّةِ</h1>
-          <div class="calli shine" aria-hidden="true"><span class="l1">جَامِعَةُ</span>الحَضَارَةِ العَالَمِيَّةِ</div>
+          <h1 class="calli depth" aria-hidden="true">جَامِعَةُ الحَضَارَةِ العَالَمِيَّةِ</h1>
+          <h1 class="calli face">جَامِعَةُ الحَضَارَةِ العَالَمِيَّةِ</h1>
+          <div class="calli shine" aria-hidden="true">جَامِعَةُ الحَضَارَةِ العَالَمِيَّةِ</div>
         </div>
       </div>
-      <svg class="ornament" viewBox="0 0 340 22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 11h140M200 11h140"/><path d="M170 2l9 9-9 9-9-9z" fill="currentColor"/><circle cx="150" cy="11" r="3"/><circle cx="190" cy="11" r="3"/></g></svg>
+      <svg class="ornament" viewBox="0 0 300 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 10h125M175 10h125"/><path d="M150 2l8 8-8 8-8-8z" fill="currentColor"/><circle cx="134" cy="10" r="2.5"/><circle cx="166" cy="10" r="2.5"/></g></svg>
       <p class="latin">WORLD CIVILIZATION UNIVERSITY</p>
-      <p class="lead">منصة الشهادات الإلكترونية للمدربين والمدربات والمتدربين والمتدربات. تصدر الشهادات تلقائياً، ويمكن لأي جهة التحقق من صحتها في ثوانٍ.</p>
+      <p class="lead">منصة الشهادات الإلكترونية للمدربين والمدربات والمتدربين والمتدربات: تصدر الشهادة تلقائياً عند إكمال الدورة، ويتحقق منها أي شخص في ثوانٍ.</p>
       <div class="actions">
-        <a class="btn btn-gold" href="#verify">تحقّق من شهادة</a>
-        <button class="btn btn-ghost" type="button" data-open-login>دخول المشرف والمدير</button>
+        <a class="btn btn-turq" href="#verify">تحقّق من شهادة</a>
+        <a class="btn btn-ghost" href="#about">تعرّف على المنصة</a>
+      </div>
+      <div class="stats" id="pubStats" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="block" id="about" aria-labelledby="aboutT">
+    <div class="wrap about">
+      <div>
+        <div class="sec-head" style="margin-bottom:0">
+          <h2 id="aboutT">شهادات موثّقة تصل أصحابها دون ورق ولا انتظار</h2>
+          <p>المنصة مرتبطة بسجلات الدورات في الجامعة. حين تكتمل دورة المتدرب أو المتدربة، تُنشأ الشهادة وتُرسل بالبريد في الحال، وتُحفظ نسخة في سجل الجامعة.</p>
+        </div>
+        <ul class="feat">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
+            <div><b>إصدار تلقائي</b><span>تصدر الشهادة PDF فور تحقق شروط الحضور والدرجة، دون تدخل يدوي.</span></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><circle cx="17" cy="10" r="3"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M16 15c3 0 6 1.5 6 5"/></svg></span>
+            <div><b>صياغة تراعي الجنس</b><span>«المتدرب» و«المتدربة»، «اجتاز» و«اجتازت» — كل شهادة تُكتب بصيغة صاحبها.</span></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg></span>
+            <div><b>تحقق فوري برمز QR</b><span>لكل شهادة رقم فريد ورمز QR يفتح صفحة التحقق، فلا يمكن تزويرها.</span></div></li>
+        </ul>
+      </div>
+      <div class="sample-stage" aria-hidden="true">
+        <div class="sample" id="sample">
+          <div class="in">
+            <div class="s-uni">جامعة الحضارة العالمية</div>
+            <div class="s-title">شهادة إتمام دورة تدريبية</div>
+            <div class="s-txt">تشهد جامعة الحضارة العالمية بأنّ المتدربة</div>
+            <div class="s-name">نورة سعد القحطاني</div>
+            <div class="s-txt">قد اجتازت بنجاح الدورة التدريبية «مهارات التواصل الفعّال» بواقع (15) ساعة تدريبية</div>
+            <div class="s-foot"><span class="qr"></span><span class="seal">معتمدة</span><span class="sign">رئيس الجامعة</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="verify" id="verify" aria-labelledby="vTitle">
-    <div class="verify-inner">
+  <section class="block tint" id="how" aria-labelledby="howT">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="howT">من التسجيل إلى الشهادة في أربع خطوات</h2>
+        <p>دورة عمل واحدة للمتدربين والمتدربات والمدربين والمدربات.</p>
+      </div>
+      <ol class="steps">
+        <li><b>التسجيل في الدورة</b><span>تضيف إدارة التدريب الاسم والجنس والبريد ورمز الدورة.</span></li>
+        <li><b>إكمال الدورة</b><span>تُسجَّل نسبة الحضور والدرجة، ثم تتغير الحالة إلى «مكتمل».</span></li>
+        <li><b>الإصدار والإرسال</b><span>تُنشأ الشهادة برقم فريد ورمز QR وتُرسل إلى البريد مباشرة.</span></li>
+        <li><b>التحقق</b><span>أي جهة تمسح الرمز أو تكتب رقم الشهادة لتتأكد من صحتها.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="audT">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="audT">لمن هذه المنصة؟</h2></div>
+      <div class="aud">
+        <div><h3>المتدربون والمتدربات</h3><p>شهادة إتمام بالتقدير المستحق تصل بريدك فور إكمال الدورة، مع رابط دائم لتحميلها.</p></div>
+        <div><h3>المدربون والمدربات</h3><p>شهادة شكر وتقدير موثّقة لكل دورة تقدّمها، بعدد ساعاتها وتواريخها.</p></div>
+        <div><h3>جهات العمل والقبول</h3><p>تحقق من أي شهادة صادرة عن الجامعة خلال ثوانٍ، دون مراسلات أو انتظار.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tint" id="verify" aria-labelledby="vTitle">
+    <div class="wrap verify-inner">
       <div>
-        <h2 id="vTitle">تحقّق من صحة الشهادة</h2>
-        <p>اكتب رقم الشهادة أو رمز التحقق المطبوع أسفلها، أو امسح رمز QR من الشهادة لتفتح هذه الصفحة بالنتيجة مباشرة.</p>
+        <div class="sec-head" style="margin-bottom:24px">
+          <h2 id="vTitle">تحقّق من صحة الشهادة</h2>
+          <p>اكتب رقم الشهادة أو رمز التحقق المطبوع أسفلها.</p>
+        </div>
         <form class="vform" id="vform">
           <label for="vq" class="sr">رقم الشهادة أو رمز التحقق</label>
           <input id="vq" maxlength="60" autocomplete="off" placeholder="مثال: WCU-2026-ST-00001" required>
           <button class="btn btn-turq" type="submit" id="vbtn">تحقّق</button>
         </form>
-        <div class="stats-line" id="pubStats" aria-live="polite"></div>
+        <p class="hint">أو امسح رمز QR الموجود على الشهادة بكاميرا الجوال لتفتح النتيجة مباشرة.</p>
       </div>
       <div class="card3d">
         <div class="flip" id="flip">
@@ -268,7 +388,12 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     </div>
   </section>
 
-  <footer class="site">© <span id="yr"></span> جامعة الحضارة العالمية — منصة الشهادات الإلكترونية</footer>
+  <footer class="site">
+    <div class="wrap">
+      <div><b>جامعة الحضارة العالمية</b><div>© <span id="yr"></span> منصة الشهادات الإلكترونية</div></div>
+      <nav aria-label="روابط التذييل"><a href="#verify">التحقق من شهادة</a><a href="#how">آلية العمل</a><a href="#" data-open-login>دخول الإدارة</a></nav>
+    </div>
+  </footer>
 </div>
 
 <!-- ======================= لوحة التحكم ======================= -->
@@ -307,11 +432,11 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     <div class="notice hidden" id="cfgNotice">لم تُربط المنصة بعد بجدول البيانات. ضع رابط تطبيق الويب في ملف <b>config.js</b> داخل المستودع.</div>
     <div class="roles" role="radiogroup" aria-label="نوع المستخدم">
       <button type="button" class="role" role="radio" aria-checked="true" data-role="admin">
-        <svg class="medal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#1B2A6B"/><circle cx="32" cy="32" r="25" fill="none" stroke="#D4A93C" stroke-width="2"/><g fill="#F6DC8C" transform="translate(32 32)"><rect x="-11" y="-11" width="22" height="22"/><rect x="-11" y="-11" width="22" height="22" transform="rotate(45)"/></g><circle cx="32" cy="32" r="5" fill="#1B2A6B"/></svg>
+        <svg class="medal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#13234F"/><circle cx="32" cy="32" r="25" fill="none" stroke="#D4A93C" stroke-width="2"/><g fill="#F6DC8C" transform="translate(32 32)"><rect x="-11" y="-11" width="22" height="22"/><rect x="-11" y="-11" width="22" height="22" transform="rotate(45)"/></g><circle cx="32" cy="32" r="5" fill="#13234F"/></svg>
         <b>المشرف العام</b><small>صلاحيات كاملة: إضافة، إصدار، إلغاء</small>
       </button>
       <button type="button" class="role" role="radio" aria-checked="false" data-role="ceo">
-        <svg class="medal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#1B7471"/><circle cx="32" cy="32" r="25" fill="none" stroke="#D4A93C" stroke-width="2"/><g fill="#F6DC8C" transform="translate(32 32)"><polygon points="0,-15 4,-4 15,0 4,4 0,15 -4,4 -15,0 -4,-4"/></g></svg>
+        <svg class="medal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#A87618"/><circle cx="32" cy="32" r="25" fill="none" stroke="#D4A93C" stroke-width="2"/><g fill="#F6DC8C" transform="translate(32 32)"><polygon points="0,-15 4,-4 15,0 4,4 0,15 -4,4 -15,0 -4,-4"/></g></svg>
         <b>المدير التنفيذي</b><small>اطلاع على الإحصاءات والسجلات</small>
       </button>
     </div>
@@ -341,7 +466,6 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (() => {
 'use strict';
@@ -387,87 +511,23 @@ async function api(action, data) {
   return json;
 }
 
-/* ================= المشهد ثلاثي الأبعاد ================= */
-function initScene() {
-  const canvas = $('#scene');
-  if (!window.THREE || !canvas) return;
-  let renderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-  camera.position.set(0, 0, 14);
-
-  scene.add(new THREE.AmbientLight(0x3a4a9a, 0.55));
-  const key = new THREE.PointLight(0xfff0c8, 1.1, 80); key.position.set(6, 6, 10); scene.add(key);
-  const rim = new THREE.PointLight(0x2ba59f, 0.45, 60); rim.position.set(-8, -4, 6); scene.add(rim);
-
-  // نجمة ثمانية (خاتم سليمان) مذهّبة ومجسّمة
-  function starShape(outer, inner, points) {
-    const s = new THREE.Shape();
-    for (let i = 0; i <= points * 2; i++) {
-      const a = (i / (points * 2)) * Math.PI * 2 - Math.PI / 2;
-      const r = i % 2 === 0 ? outer : inner;
-      const x = Math.cos(a) * r, y = Math.sin(a) * r;
-      i === 0 ? s.moveTo(x, y) : s.lineTo(x, y);
-    }
-    return s;
-  }
-  const gold = new THREE.MeshStandardMaterial({ color: 0xd4a93c, metalness: 0.75, roughness: 0.42 });
-  const lapis = new THREE.MeshStandardMaterial({ color: 0x1b2a6b, metalness: 0.4, roughness: 0.5 });
-  const group = new THREE.Group();
-  const big = starShape(5.2, 4.1, 8);
-  const hole = starShape(3.6, 2.8, 8); big.holes.push(hole);
-  const star = new THREE.Mesh(new THREE.ExtrudeGeometry(big, { depth: 0.5, bevelEnabled: true, bevelThickness: 0.18, bevelSize: 0.14, bevelSegments: 3 }), gold);
-  star.position.z = -0.25; group.add(star);
-  const innerStar = new THREE.Mesh(new THREE.ExtrudeGeometry(starShape(2.6, 1.9, 8), { depth: 0.3, bevelEnabled: true, bevelThickness: 0.1, bevelSize: 0.08, bevelSegments: 2 }), lapis);
-  innerStar.position.z = -0.6; group.add(innerStar);
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(6.3, 0.07, 16, 160), gold); group.add(ring);
-  const ring2 = new THREE.Mesh(new THREE.TorusGeometry(6.8, 0.03, 12, 160), gold); group.add(ring2);
-  group.position.z = -14;
-  scene.add(group);
-
-  // غبار ذهبي
-  const N = 700, pos = new Float32Array(N * 3);
-  for (let i = 0; i < N; i++) { pos[i*3] = (Math.random()-.5)*40; pos[i*3+1] = (Math.random()-.5)*24; pos[i*3+2] = (Math.random()-.5)*20 - 4; }
-  const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const dust = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xf6dc8c, size: 0.06, transparent: true, opacity: 0.8 }));
-  scene.add(dust);
-
-  let mx = 0, my = 0;
-  addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
-  function resize() {
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-    const s = w < 700 ? 0.7 : 1; group.scale.set(s, s, s);
-  }
-  addEventListener('resize', resize); resize();
-  let visible = true;
-  new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(canvas);
-  const clock = new THREE.Clock();
-  (function loop() {
-    requestAnimationFrame(loop);
-    if (!visible) return;
-    const t = clock.getElapsedTime();
-    if (!reduce) {
-      group.rotation.z = t * 0.06;
-      group.rotation.y += ((mx * 0.6) - group.rotation.y) * 0.04;
-      group.rotation.x += ((my * 0.4) - group.rotation.x) * 0.04;
-      innerStar.rotation.z = -t * 0.12;
-      ring2.rotation.x = Math.sin(t * .4) * .25;
-      dust.rotation.y = t * 0.015;
-    }
-    renderer.render(scene, camera);
-  })();
-}
-
-/* إمالة الاسم ثلاثي الأبعاد مع حركة المؤشر */
+/* ================= الإمالة ثلاثية الأبعاد ================= */
 function initTilt() {
-  const w = $('#calli'); if (!w || reduce) return;
+  if (reduce) return;
+  const name = $('#calli'), sample = $('#sample');
   addEventListener('pointermove', e => {
     const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
-    w.style.transform = `rotateY(${x * -16}deg) rotateX(${y * 12}deg)`;
-  });
+    if (name) name.style.transform = `rotateY(${x * -12}deg) rotateX(${y * 9}deg)`;
+  }, { passive: true });
+  if (sample) {
+    const stage = sample.parentElement;
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      sample.style.transform = `rotateY(${x * -24}deg) rotateX(${y * 16}deg)`;
+    });
+    stage.addEventListener('pointerleave', () => { sample.style.transform = ''; });
+  }
 }
 
 /* ================= التحقق ================= */
@@ -523,7 +583,7 @@ function openLogin() {
   $('#loginDlg').showModal(); setTimeout(() => $('#pin').focus(), 50);
 }
 $('#openLogin').addEventListener('click', openLogin);
-$$('[data-open-login]').forEach(b => b.addEventListener('click', openLogin));
+$$('[data-open-login]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openLogin(); }));
 $$('dialog [data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
 $$('.role').forEach(b => b.addEventListener('click', () => {
   selRole = b.dataset.role;
@@ -791,7 +851,7 @@ function renderSecurity() {
 }
 
 /* ================= التشغيل ================= */
-initScene(); initTilt(); loadPublicStats();
+initTilt(); loadPublicStats();
 const qp = new URLSearchParams(location.search).get('c');
 if (qp) { $('#vq').value = qp; verify(qp); setTimeout(() => $('#verify').scrollIntoView(), 300); }
 if (session.token && location.hash === '#admin') showApp();
